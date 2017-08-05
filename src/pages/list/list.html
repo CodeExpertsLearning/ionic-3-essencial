@@ -3,21 +3,32 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>Cadastrar</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+<ion-content padding>
+  <ion-item>
+    <ion-label floating>Nome</ion-label>
+    <ion-input type="text" [(ngModel)]="beer.name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Preço</ion-label>
+    <ion-input type="text" [(ngModel)]="beer.price"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Tipo</ion-label>
+    <ion-input type="text" [(ngModel)]="beer.type"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Marca</ion-label>
+    <ion-input type="text" [(ngModel)]="beer.mark"></ion-input>
+  </ion-item>
+
+  <p>
+    <button ion-button full (click)="saveBeer(beer)">Cadastrar</button>
+  </p>
 </ion-content>
