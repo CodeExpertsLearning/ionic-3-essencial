@@ -10,7 +10,7 @@ import { NavController, NavParams, ToastController } from 'ionic-angular';
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  private url:string = 'http://localhost:3030/v1';
+  private url:string = 'http://192.168.0.14:3030/v1';
   public beer =  {
     name: "",
     price: "",
