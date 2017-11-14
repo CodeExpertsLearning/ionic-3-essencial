@@ -27,6 +27,12 @@
     <ion-label floating>Marca</ion-label>
     <ion-input type="text" [(ngModel)]="beer.mark"></ion-input>
   </ion-item>
+  <p>
+    <button color="danger" ion-button full (click)="getPhoto()">
+        <ion-icon  name="camera"></ion-icon>
+         Tirar Foto Cerveja</button>
+      <img src="{{beer.img}}" alt="" *ngIf="beer.img" width="100%" height="150px">
+  </p>
 
   <p>
     <button ion-button full (click)="saveBeer(beer)">Cadastrar</button>
