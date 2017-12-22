@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { AuthProvider } from './../../providers/auth/auth';
 
 @Component({
   selector: 'page-list',
@@ -11,7 +12,7 @@ import { NavController, NavParams, ToastController } from 'ionic-angular';
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  private url:string = 'http://192.168.0.14:3030/v1';
+  private url:string = 'http://localhost:3030/v1';
   public beer =  {
     name: "",
     price: "",
@@ -24,9 +25,14 @@ export class ListPage {
               public toastCtrl: ToastController,
               public navParams: NavParams,
               public http: Http,
-              public camera: Camera
+              public camera: Camera,
+              public authService: AuthProvider
             ) {
 
+  }
+
+  ionViewCanEnter() {
+    return this.authService.userIsLogged();
   }
 
   saveBeer(beer) {
