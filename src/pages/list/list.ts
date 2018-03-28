@@ -4,6 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth';
+import { HttpServiceProvider } from '../../providers/http-service/http-service';
 
 @Component({
   selector: 'page-list',
@@ -12,7 +13,7 @@ import { AuthProvider } from './../../providers/auth/auth';
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  private url:string = 'http://localhost:3030/v1';
+
   public beer =  {
     name: "",
     price: "",
@@ -24,7 +25,7 @@ export class ListPage {
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
               public navParams: NavParams,
-              public http: Http,
+              public http: HttpServiceProvider,
               public camera: Camera,
               public authService: AuthProvider
             ) {
@@ -36,20 +37,15 @@ export class ListPage {
   }
 
   saveBeer(beer) {
-    let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
 
-    let options = new RequestOptions({ headers: headers});
-
-    this.http.post(this.url + '/beers', beer, options)
-             .map(res => res.json())
-             .subscribe(data => {
-               let toast = this.toastCtrl.create({
-                  message: data.msg,
-                  duration: 3000
-                });
-                toast.present();
-              });
+             this.http.post('beers', beer)
+                      .subscribe(data => {
+                        let toast = this.toastCtrl.create({
+                            message: data.msg,
+                            duration: 3000
+                          });
+                          toast.present();
+                      });
 
   }
 

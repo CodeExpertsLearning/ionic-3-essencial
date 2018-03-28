@@ -3,26 +3,21 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Storage} from '@ionic/storage';
 import { ToastController } from 'ionic-angular';
+import { HttpServiceProvider } from '../http-service/http-service';
 
 @Injectable()
 export class AuthProvider {
   private msg: string = 'É preciso logar para acessar!';
 
   constructor(
-    public http: Http,
+    public http: HttpServiceProvider,
     public storage: Storage,
     public toastCtrl: ToastController
   ) {
   }
 
   login(credentials) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    let options = new RequestOptions({ headers: headers });
-
-    this.http.post('http://localhost:3030/v1/auth/login', credentials, options)
-      .map(res => res.json())
+    this.http.post('auth/login', credentials)
       .subscribe(data => {
         this.storage.set('token', data.token);
       });
