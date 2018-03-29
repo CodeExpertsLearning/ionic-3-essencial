@@ -20,7 +20,16 @@ export class AuthProvider {
     this.http.post('auth/login', credentials)
       .subscribe(data => {
         this.storage.set('token', data.token);
-      });
+      },
+      error => {
+        let msg = error.json();
+        let toast = this.toastCtrl.create({
+          message: msg.msg,
+          duration: 3000
+        });
+        toast.present();
+      }
+    );
   }
 
   userIsLogged() {
